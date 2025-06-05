@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Akash Kumar Panda | Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+      background-color: #0b0c1b;
+    }
+    .interactive-bg-canvas {
+      position: fixed;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+    .hover-bounce:hover {
+      transform: translateY(-5px);
+      transition: transform 0.3s ease-in-out;
+    }
+    .flip-card {
+      perspective: 1000px;
+    }
+    .flip-card-inner {
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+      position: relative;
+      height: 100%;
+    }
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      border-radius: 0.75rem;
+    }
+    .flip-card-back {
+      transform: rotateY(180deg);
+    }
+  </style>
+</head>
+<body class="text-white font-sans relative">
+<canvas class="interactive-bg-canvas" id="milkyway"></canvas>
+
+<!-- MENU -->
+<header class="bg-gray-950 text-white py-4 px-8 fixed top-0 left-0 right-0 z-50 shadow-md">
+  <div class="container mx-auto flex justify-between items-center">
+    <h1 class="text-xl font-bold text-teal-400">Akash</h1>
+    <nav class="space-x-6 text-sm">
+      <a href="#" class="hover:text-teal-300">Home</a>
+      <a href="#about" class="hover:text-teal-300">About</a>
+      <a href="#education" class="hover:text-teal-300">Education</a>
+      <a href="#skills" class="hover:text-teal-300">Skills</a>
+      <a href="#certifications" class="hover:text-teal-300">Certifications</a>
+      <a href="#projects" class="hover:text-teal-300">Projects</a>
+      <a href="#contact" class="hover:text-teal-300">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!--  -->
+<script>
+  const canvas = document.getElementById('milkyway');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+  for (let i = 0; i < 200; i++) {
+    stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, radius: Math.random() * 1.5, speed: Math.random() * 0.5 });
+  }
+  let mouseX = canvas.width / 2;
+  let mouseY = canvas.height / 2;
+  document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+  function animateStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let star of stars) {
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+      ctx.fill();
+      const dx = (mouseX - canvas.width / 2) * 0.00005;
+      const dy = (mouseY - canvas.height / 2) * 0.00005;
+      star.x += dx * star.speed * canvas.width;
+      star.y += dy * star.speed * canvas.height;
+      if (star.x < 0 || star.x > canvas.width) star.x = Math.random() * canvas.width;
+      if (star.y < 0 || star.y > canvas.height) star.y = Math.random() * canvas.height;
+    }
+    requestAnimationFrame(animateStars);
+  }
+  animateStars();
+</script>
+
+<!-- Hero Section -->
+<section class="flex flex-col justify-center items-center min-h-screen text-center px-4 animate__animated animate__fadeIn">
+  <div class="w-40 h-40 rounded-full overflow-hidden shadow-lg mb-6">
+    <img src="Sky.jpg" alt="Profile" class="w-full h-full object-cover" />
+  </div>
+  <h1 class="text-5xl font-bold text-teal-400 mb-4">Akash Kumar Panda</h1>
+  <p class="text-xl animate__animated animate__fadeInUp animate__delay-1s">
+    Python Developer | Full Stack Web Developer | Cloud (AWS)
+  </p>
+  <div class="flex gap-6 mt-6 text-xl animate__animated animate__fadeInUp animate__delay-2s">
+    <a href="https://www.instagram.com/" class="text-pink-500 hover-bounce"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.facebook.com/" class="text-blue-500 hover-bounce"><i class="fab fa-facebook"></i></a>
+    <a href="https://www.linkedin.com/in/akash-kumar-panda1015/" class="text-blue-300 hover-bounce"><i class="fab fa-linkedin"></i></a>
+    <a href="https://github.com/" class="text-white hover-bounce"><i class="fab fa-github"></i></a>
+  </div>
+</section>
+
+
+<!-- About -->
+<section class="px-8 py-12 bg-gray-800 animate__animated animate__fadeInLeft">
+  <h2 class="text-3xl font-semibold text-teal-400 mb-4">About Me</h2>
+  <p class="max-w-5xl text-lg leading-relaxed">
+    I'm a dedicated and detail-oriented Computer Science & Engineering student at Government College of Engineering, Kalahandi. With a strong foundation in programming and cloud infrastructure, I enjoy solving problems using React, Node.js, Python, and AWS. I’ve led and executed full-stack web projects, applied digital marketing strategies (SEO, Ads, GTM), and deployed scalable systems. I'm passionate about innovation and always eager to learn modern tech to deliver efficient, real-world solutions.
+  </p>
+</section>
+
+<!-- Education -->
+<section class="px-8 py-12 animate__animated animate__fadeInRight">
+  <h2 class="text-3xl font-semibold text-teal-400 mb-6">Education</h2>
+  <div class="bg-gray-800 p-6 rounded-xl shadow-lg md:grid md:grid-cols-2 gap-6">
+    <div>
+      <h3 class="text-xl font-bold text-white">B.Tech in Computer Science & Engineering</h3>
+      <p class="text-gray-300 mt-2">Government College of Engineering, Kalahandi (2021 - 2025)</p>
+    </div>
+    <div class="mt-6 md:mt-0">
+      <iframe class="rounded-lg w-full h-64" style="border:0"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3751.2377957247922!2d83.10372987522678!3d19.914381681470477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a24ef3382020aa3%3A0x6720328dfbfd451a!2sGovernment%20College%20Of%20Engineering%2CKalahandi(Autonomous)!5e0!3m2!1sen!2sin!4v1749136324595!5m2!1sen!2sin"
+        allowfullscreen="" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section class="px-8 py-12 animate__animated animate__fadeInUp">
+  <h2 class="text-3xl font-semibold text-teal-400 mb-8">Skills</h2>
+  <div class="grid grid-cols-3 sm:grid-cols-6 gap-6 text-center text-3xl">
+    <div><i class="fab fa-html5 text-orange-500"></i><p class="text-sm mt-2">HTML5</p></div>
+    <div><i class="fab fa-css3-alt text-blue-500"></i><p class="text-sm mt-2">CSS3</p></div>
+    <div><i class="fab fa-js text-yellow-400"></i><p class="text-sm mt-2">JavaScript</p></div>
+    <div><i class="fab fa-react text-cyan-400"></i><p class="text-sm mt-2">React</p></div>
+    <div><i class="fab fa-node-js text-green-400"></i><p class="text-sm mt-2">Node.js</p></div>
+    <div><i class="fab fa-aws text-orange-300"></i><p class="text-sm mt-2">AWS</p></div>
+    <div><i class="fab fa-python text-yellow-300"></i><p class="text-sm mt-2">Python</p></div>
+    <div><i class="fab fa-google text-blue-400"></i><p class="text-sm mt-2">Google Ads</p></div>
+    <div><i class="fas fa-search text-white"></i><p class="text-sm mt-2">SEO</p></div>
+    <div><i class="fab fa-facebook text-blue-500"></i><p class="text-sm mt-2">Meta Ads</p></div>
+    <div><i class="fab fa-google text-red-500"></i><p class="text-sm mt-2">GTM</p></div>
+    <div><i class="fab fa-github text-white"></i><p class="text-sm mt-2">GitHub</p></div>
+  </div>
+</section>
+
+<!-- Certifications -->
+<section class="px-8 py-12 bg-gray-800 animate__animated animate__fadeInLeft">
+  <h2 class="text-3xl font-semibold text-teal-400 mb-6">Certifications</h2>
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+      <i class="fas fa-certificate text-yellow-400 mr-2"></i> Full Stack Developer (AWSAIAPP)
+    </div>
+    <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+      <i class="fas fa-certificate text-yellow-400 mr-2"></i> Facebook Business Manager
+    </div>
+    <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+      <i class="fas fa-certificate text-yellow-400 mr-2"></i> GTM Fundamentals
+    </div>
+    <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+      <i class="fas fa-certificate text-yellow-400 mr-2"></i> Google Analytics for Beginners
+    </div>
+    <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+      <i class="fas fa-certificate text-yellow-400 mr-2"></i> SEO Strategies
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section class="px-8 py-12 animate__animated animate__fadeInUp">
+  <h2 class="text-3xl font-semibold text-teal-400 mb-8 text-center">Projects</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="flip-card bg-gray-700 p-4 rounded-xl h-64">
+      <div class="flip-card-inner">
+        <div class="flip-card-front bg-gray-700">
+          <h3 class="text-xl font-bold text-teal-300 text-center">Note-Taking App</h3>
+        </div>
+        <div class="flip-card-back bg-gray-800">
+          <p class="text-center">React + AWS-based app for secure note storage with user authentication and CRUD.</p>
+        </div>
+      </div>
+    </div>
+    <div class="flip-card bg-gray-700 p-4 rounded-xl h-64">
+      <div class="flip-card-inner">
+        <div class="flip-card-front bg-gray-700">
+          <h3 class="text-xl font-bold text-teal-300 text-center">Keeper App</h3>
+        </div>
+        <div class="flip-card-back bg-gray-800">
+          <p class="text-center">Document management system with tagging, file conversion, and AWS Lambda deployment.</p>
+        </div>
+      </div>
+    </div>
+    <div class="flip-card bg-gray-700 p-4 rounded-xl h-64">
+      <div class="flip-card-inner">
+        <div class="flip-card-front bg-gray-700">
+          <h3 class="text-xl font-bold text-teal-300 text-center">GAN-BERT ABSA</h3>
+        </div>
+        <div class="flip-card-back bg-gray-800">
+          <p class="text-center">Semi-supervised learning model combining GAN and BERT for sentiment analysis, achieving 96.9% accuracy.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Download CV -->
+<section class="px-8 py-12 text-center animate__animated animate__fadeInUp">
+  <a href="Akash_Kumar_Panda_CV.pdf" download class="inline-block px-6 py-2 border border-teal-400 rounded hover:bg-teal-400 hover:text-gray-900 transition">
+    View/Download CV
+  </a>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-center py-6 text-sm text-gray-400">
+  © 2025 Akash Kumar Panda. All rights reserved.
+</footer>
+</body>
+</html>
