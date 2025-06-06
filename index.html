@@ -1,262 +1,595 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Akash Kumar Panda | Portfolio</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      overflow-x: hidden;
-      background-color: #0b0c1b;
-    }
-    .interactive-bg-canvas {
-      position: fixed;
-      z-index: -1;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-    }
-    .hover-bounce:hover {
-      transform: translateY(-5px);
-      transition: transform 0.3s ease-in-out;
-    }
-    .flip-card {
-      perspective: 1000px;
-    }
-    .flip-card-inner {
-      transition: transform 0.8s;
-      transform-style: preserve-3d;
-      position: relative;
-      height: 100%;
-    }
-    .flip-card:hover .flip-card-inner {
-      transform: rotateY(180deg);
-    }
-    .flip-card-front, .flip-card-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      border-radius: 0.75rem;
-    }
-    .flip-card-back {
-      transform: rotateY(180deg);
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Akash Kumar Panda | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        /* Define CSS Variables for theming */
+        :root {
+            --header-bg: #0b0c1b;
+            --section-bg-primary: #0b0c1b;
+            --section-bg-secondary: #1a202c;
+            --text-color-primary: #ffffff;
+            --text-color-secondary: #a0aec0; /* For softer text like in Education/Experience */
+            --teal-color: #38b2ac; /* original teal-400 */
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Light mode theme variables */
+        body.light-mode-theme {
+            --header-bg: #e2e8f0; /* light gray header */
+            --section-bg-primary: #f8f8f8; /* very light section background */
+            --section-bg-secondary: #ffffff; /* pure white for alternating sections */
+            --text-color-primary: #1a202c; /* dark gray text */
+            --text-color-secondary: #4a5568; /* medium gray text */
+            --teal-color: #008080; /* darker teal for contrast */
+            --border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        /* General HTML and Body Styling */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden; /* Prevents horizontal scroll */
+            background-color: var(--section-bg-primary); /* Uses CSS variable */
+            color: var(--text-color-primary); /* Uses CSS variable */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for theme change */
+        }
+
+        /* Custom classes for theme application */
+        .theme-header-bg {
+            background-color: var(--header-bg);
+            transition: background-color 0.3s ease;
+        }
+        .theme-section-bg-primary {
+            background-color: var(--section-bg-primary);
+            transition: background-color 0.3s ease;
+        }
+        .theme-section-bg-secondary {
+            background-color: var(--section-bg-secondary);
+            transition: background-color 0.3s ease;
+        }
+        .theme-text-primary {
+            color: var(--text-color-primary);
+            transition: color 0.3s ease;
+        }
+        .theme-text-secondary {
+            color: var(--text-color-secondary);
+            transition: color 0.3s ease;
+        }
+        .theme-accent-color {
+            color: var(--teal-color);
+            transition: color 0.3s ease;
+        }
+        .theme-border-color {
+            border-color: var(--border-color);
+            transition: border-color 0.3s ease;
+        }
+        .theme-button-bg {
+            background-color: var(--teal-color);
+            transition: background-color 0.3s ease;
+        }
+        .theme-button-hover-bg:hover {
+            background-color: color-mix(in srgb, var(--teal-color) 80%, black); /* Slightly darker on hover */
+            transition: background-color 0.3s ease;
+        }
+
+        /* Canvas for background animations */
+        .interactive-bg-canvas {
+            position: fixed;
+            z-index: -1; /* Puts canvas behind content */
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        /* Hover effect for social icons */
+        .hover-bounce:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Flip card effects for projects */
+        .flip-card {
+            perspective: 1000px; /* Provides 3D effect */
+        }
+        .flip-card-inner {
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            position: relative;
+            height: 100%;
+        }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden; /* Hides back of element when facing away */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            border-radius: 0.75rem;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+            justify-content: space-between; /* Pushes button to bottom */
+        }
+
+        /* Sun icon glow effect */
+        .sun-icon-glow {
+            text-shadow: 0 0 8px rgba(255, 255, 0, 0.8), 0 0 15px rgba(255, 255, 0, 0.5);
+        }
+
+        /* Keyframes for sun blinking/pulsing effect */
+        @keyframes sunPulse {
+            0% { text-shadow: 0 0 8px rgba(255, 255, 0, 0.8), 0 0 15px rgba(255, 255, 0, 0.5); }
+            50% { text-shadow: 0 0 15px rgba(255, 255, 0, 1), 0 0 25px rgba(255, 255, 0, 0.7); }
+            100% { text-shadow: 0 0 8px rgba(255, 255, 0, 0.8), 0 0 15px rgba(255, 255, 0, 0.5); }
+        }
+
+        /* Apply pulsing animation to the sun icon in the menu */
+        .menu-sun-blinking {
+            animation: sunPulse 2s infinite alternate; /* Subtle pulse */
+        }
+
+        /* Modal specific styles (kept for 'Suggest More Details' if ever re-added) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Ensures modal is on top */
+        }
+        .modal-content {
+            background-color: var(--section-bg-secondary); /* Matches dark theme */
+            padding: 2rem;
+            border-radius: 0.75rem;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80%;
+            overflow-y: auto; /* Enables scrolling for long content */
+            color: var(--text-color-primary);
+            position: relative;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .modal-close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color-secondary);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid var(--teal-color); /* Teal color */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
-<body class="text-white font-sans relative">
+<body class="theme-section-bg-primary theme-text-primary font-sans relative">
 <canvas class="interactive-bg-canvas" id="milkyway"></canvas>
 
 <!-- Header/Menu -->
-<header class="bg-gray-950 text-white py-4 px-6 fixed top-0 left-0 right-0 z-50 shadow-md">
-  <div class="container mx-auto flex justify-between items-center">
-    <h1 class="text-xl font-bold text-teal-400">Akash</h1>
+<header class="theme-header-bg theme-text-primary py-4 px-6 fixed top-0 left-0 right-0 z-50 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+        <!-- Sun/Moon icon as theme toggle -->
+        <button id="theme-toggle" class="text-yellow-400 text-2xl focus:outline-none menu-sun-blinking" aria-label="Toggle light and dark mode">
+            <i class="fas fa-sun"></i> <!-- Default icon is sun -->
+        </button>
 
-    <!-- Hamburger Icon -->
-    <button id="menu-toggle" class="md:hidden text-white focus:outline-none text-2xl">
-      <i class="fas fa-bars"></i>
-    </button>
+        <!-- Hamburger Icon for mobile navigation toggle -->
+        <button id="menu-toggle" class="md:hidden theme-text-primary focus:outline-none text-2xl">
+            <i class="fas fa-bars"></i>
+        </button>
 
-    <!-- Navigation -->
-    <nav id="menu" class="hidden md:flex md:space-x-6 text-sm flex-col md:flex-row absolute md:static top-16 left-0 w-full md:w-auto bg-gray-900 md:bg-transparent px-6 md:px-0 py-4 md:py-0 z-40 space-y-4 md:space-y-0">
-      <a href="#hero" class="block hover:text-teal-300">Home</a>
-      <a href="#about" class="block hover:text-teal-300">About</a>
-      <a href="#education" class="block hover:text-teal-300">Education</a>
-      <a href="#skills" class="block hover:text-teal-300">Skills</a>
-      <a href="#certifications" class="block hover:text-teal-300">Certifications</a>
-      <a href="#projects" class="block hover:text-teal-300">Projects</a>
-    </nav>
-  </div>
+        <!-- Navigation links for desktop and mobile menu -->
+        <nav id="menu" class="hidden md:flex md:space-x-6 text-sm flex-col md:flex-row absolute md:static top-16 left-0 w-full md:w-auto theme-header-bg md:bg-transparent px-6 md:px-0 py-4 md:py-0 z-40 space-y-4 md:space-y-0">
+            <a href="#hero" class="block hover:theme-accent-color theme-text-primary">Home</a>
+            <a href="#about" class="block hover:theme-accent-color theme-text-primary">About</a>
+            <a href="#experience" class="block hover:theme-accent-color theme-text-primary">Experience</a>
+            <a href="#education" class="block hover:theme-accent-color theme-text-primary">Education</a>
+            <a href="#skills" class="block hover:theme-accent-color theme-text-primary">Skills</a>
+            <a href="#certifications" class="block hover:theme-accent-color theme-text-primary">Certifications</a>
+            <a href="#projects" class="block hover:theme-accent-color theme-text-primary">Projects</a>
+        </nav>
+    </div>
 </header>
 
 
 <!-- Hero Section -->
 <section id="hero" class="flex flex-col justify-center items-center min-h-screen text-center px-4 animate__animated animate__fadeIn pt-20">
-  <div class="w-40 h-40 rounded-full overflow-hidden shadow-lg mb-6">
-    <img src="Sky.jpg" alt="Profile" class="w-full h-full object-cover" />
-  </div>
-  <h1 class="text-5xl font-bold text-teal-400 mb-4">Akash Kumar Panda</h1>
-  <p class="text-xl animate__animated animate__fadeInUp animate__delay-1s">
-    Python Developer | Full Stack Web Developer | Cloud (AWS)
-  </p>
-  <div class="flex gap-6 mt-6 text-xl animate__animated animate__fadeInUp animate__delay-2s">
-    <a href="https://www.instagram.com/" class="text-pink-500 hover-bounce"><i class="fab fa-instagram"></i></a>
-    <a href="https://www.facebook.com/" class="text-blue-500 hover-bounce"><i class="fab fa-facebook"></i></a>
-    <a href="https://www.linkedin.com/in/akash-kumar-panda1015/" class="text-blue-300 hover-bounce"><i class="fab fa-linkedin"></i></a>
-    <a href="https://github.com/" class="text-white hover-bounce"><i class="fab fa-github"></i></a>
-  </div>
+    <div class="w-40 h-40 rounded-full overflow-hidden shadow-lg mb-6">
+        <img src="Sky.jpg" alt="Profile" class="w-full h-full object-cover" />
+    </div>
+    <h1 class="text-5xl font-bold theme-accent-color mb-4">Akash Kumar Panda</h1>
+    <p class="text-xl animate__animated animate__fadeInUp animate__delay-1s theme-text-primary">
+        Python Developer | Full Stack Web Developer | Cloud (AWS)
+    </p>
+    <div class="flex gap-6 mt-6 text-xl animate__animated animate__fadeInUp animate__delay-2s">
+        <a href="https://www.instagram.com/" class="text-pink-500 hover-bounce" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/" class="text-blue-500 hover-bounce" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.linkedin.com/in/akash-kumar-panda1015/" class="text-blue-300 hover-bounce" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/" class="theme-text-primary hover-bounce" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="mailto:akashpanda6543@gmail.com" class="text-red-500 hover-bounce" aria-label="Email"><i class="fas fa-envelope"></i></a>
+    </div>
 </section>
 
-<!-- About -->
-<section id="about" class="px-8 py-12 bg-gray-800 animate__animated animate__fadeInLeft">
-  <h2 class="text-3xl font-semibold text-teal-400 mb-4">About Me</h2>
-  <p class="max-w-5xl text-lg leading-relaxed">
-    I'm a dedicated and detail-oriented Computer Science & Engineering student at Government College of Engineering, Kalahandi. With a strong foundation in programming and cloud infrastructure, I enjoy solving problems using React, Node.js, Python, and AWS. I’ve led and executed full-stack web projects, applied digital marketing strategies (SEO, Ads, GTM), and deployed scalable systems. I'm passionate about innovation and always eager to learn modern tech to deliver efficient, real-world solutions.
-  </p>
+<!-- About Section -->
+<section id="about" class="px-8 py-12 animate__animated animate__fadeInLeft rounded-xl m-4 theme-section-bg-secondary theme-text-primary">
+    <h2 class="text-3xl font-semibold theme-accent-color mb-4">About Me</h2>
+    <p class="max-w-5xl text-lg leading-relaxed theme-text-primary">
+        I'm a dedicated and detail-oriented Computer Science & Engineering student at Government College of Engineering, Kalahandi. With a strong foundation in programming and cloud infrastructure, I enjoy solving problems using React, Node.js, Python, and AWS. I’ve led and executed full-stack web projects, applied digital marketing strategies (SEO, Ads, GTM), and deployed scalable systems. I'm passionate about innovation and always eager to learn modern tech to deliver efficient, real-world solutions.
+    </p>
 </section>
 
-<!-- Education -->
-<section id="education" class="px-8 py-12 animate__animated animate__fadeInRight">
-  <h2 class="text-3xl font-semibold text-teal-400 mb-6">Education</h2>
-  <div class="bg-gray-800 p-6 rounded-xl shadow-lg md:grid md:grid-cols-2 gap-6">
-    <div>
-      <h3 class="text-xl font-bold text-white">B.Tech in Computer Science & Engineering</h3>
-      <p class="text-gray-300 mt-2">Government College of Engineering, Kalahandi (2021 - 2025)</p>
+<!-- Experience Section -->
+<section id="experience" class="px-8 py-12 animate__animated animate__fadeInUp rounded-xl m-4 theme-section-bg-primary theme-text-primary">
+    <h2 class="text-3xl font-semibold theme-accent-color mb-6">Experience</h2>
+    <div class="p-6 rounded-xl shadow-lg theme-section-bg-secondary">
+        <h3 class="text-xl font-bold theme-text-primary">Full Stack Developer</h3>
+        <p class="mt-1 theme-text-secondary">Intelligent AWS Application | 2023-2024</p>
+        <ul class="list-disc list-inside mt-4 space-y-2 theme-text-secondary">
+            <li>Developed user authentication, responsive designs, and seamless AWS data management solutions.</li>
+            <li>Analyzed business data to uncover growth opportunities and improve decision-making.</li>
+            <li>Created detailed reports to support faster and more informed strategic decisions.</li>
+            <li>Led numerous ad campaigns, significantly enhancing brand visibility and driving profitability.</li>
+            <li>Improved SEO strategies, boosting organic traffic through optimized keywords and effective backlinking.</li>
+        </ul>
     </div>
-    <div class="mt-6 md:mt-0">
-      <iframe class="rounded-lg w-full h-64" style="border:0"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3751.2377957247922!2d83.10372987522678!3d19.914381681470477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a24ef3382020aa3%3A0x6720328dfbfd451a!2sGovernment%20College%20Of%20Engineering%2CKalahandi(Autonomous)!5e0!3m2!1sen!2sin!4v1749136324595!5m2!1sen!2sin"
-        allowfullscreen="" loading="lazy"></iframe>
-    </div>
-  </div>
 </section>
 
-<!-- Skills -->
-<section id="skills" class="px-8 py-12 animate__animated animate__fadeInUp">
-  <h2 class="text-3xl font-semibold text-teal-400 mb-8">Skills</h2>
-  <div class="grid grid-cols-3 sm:grid-cols-6 gap-6 text-center text-3xl">
-    <div><i class="fab fa-html5 text-orange-500"></i><p class="text-sm mt-2">HTML5</p></div>
-    <div><i class="fab fa-css3-alt text-blue-500"></i><p class="text-sm mt-2">CSS3</p></div>
-    <div><i class="fab fa-js text-yellow-400"></i><p class="text-sm mt-2">JavaScript</p></div>
-    <div><i class="fab fa-react text-cyan-400"></i><p class="text-sm mt-2">React</p></div>
-    <div><i class="fab fa-node-js text-green-400"></i><p class="text-sm mt-2">Node.js</p></div>
-    <div><i class="fab fa-aws text-orange-300"></i><p class="text-sm mt-2">AWS</p></div>
-    <div><i class="fab fa-python text-yellow-300"></i><p class="text-sm mt-2">Python</p></div>
-    <div><i class="fab fa-google text-blue-400"></i><p class="text-sm mt-2">Google Ads</p></div>
-    <div><i class="fas fa-search text-white"></i><p class="text-sm mt-2">SEO</p></div>
-    <div><i class="fab fa-facebook text-blue-500"></i><p class="text-sm mt-2">Meta Ads</p></div>
-    <div><i class="fab fa-google text-red-500"></i><p class="text-sm mt-2">GTM</p></div>
-    <div><i class="fab fa-github text-white"></i><p class="text-sm mt-2">GitHub</p></div>
-  </div>
+<!-- Education Section -->
+<section id="education" class="px-8 py-12 animate__animated animate__fadeInRight rounded-xl m-4 theme-section-bg-secondary theme-text-primary">
+    <h2 class="text-3xl font-semibold theme-accent-color mb-6">Education</h2>
+    <div class="p-6 rounded-xl shadow-lg theme-section-bg-secondary md:grid md:grid-cols-2 gap-6">
+        <div>
+            <h3 class="text-xl font-bold theme-text-primary">B.Tech in Computer Science & Engineering</h3>
+            <p class="mt-2 theme-text-secondary">Government College of Engineering, Kalahandi (2021 - 2025)</p>
+        </div>
+        <div class="mt-6 md:mt-0">
+            <!-- Google Maps iframe for the institution location -->
+            <iframe class="rounded-lg w-full h-64" style="border:0"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3751.2377957247922!2d83.10372987522678!3d19.914381681470477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a24ef3382020aa3%3A0x6720328dfbfd451a!2sGovernment%20College%20Of%20Engineering%2CKalahandi(Autonomous)!5e0!3m2!1sen!2sin!4v1749136324595!5m2!1sen!2sin"
+                allowfullscreen="" loading="lazy">
+            </iframe>
+        </div>
+    </div>
 </section>
 
-<!-- Certifications -->
-<section id="certifications" class="px-8 py-12 bg-gray-800 animate__animated animate__fadeInLeft">
-  <h2 class="text-3xl font-semibold text-teal-400 mb-6">Certifications</h2>
-  <div class="grid md:grid-cols-2 gap-6">
-    <div class="bg-gray-700 p-4 rounded-lg shadow-md"><i class="fas fa-certificate text-yellow-400 mr-2"></i> Full Stack Developer (AWSAIAPP)</div>
-    <div class="bg-gray-700 p-4 rounded-lg shadow-md"><i class="fas fa-certificate text-yellow-400 mr-2"></i> Facebook Business Manager</div>
-    <div class="bg-gray-700 p-4 rounded-lg shadow-md"><i class="fas fa-certificate text-yellow-400 mr-2"></i> GTM Fundamentals</div>
-    <div class="bg-gray-700 p-4 rounded-lg shadow-md"><i class="fas fa-certificate text-yellow-400 mr-2"></i> Google Analytics for Beginners</div>
-    <div class="bg-gray-700 p-4 rounded-lg shadow-md"><i class="fas fa-certificate text-yellow-400 mr-2"></i> SEO Strategies</div>
-  </div>
+<!-- Skills Section -->
+<section id="skills" class="px-8 py-12 animate__animated animate__fadeInUp rounded-xl m-4 theme-section-bg-primary theme-text-primary">
+    <h2 class="text-3xl font-semibold theme-accent-color mb-8">Skills</h2>
+    <div class="grid grid-cols-3 sm:grid-cols-6 gap-6 text-center text-3xl">
+        <!-- Skill icons with labels -->
+        <div><i class="fab fa-html5 text-orange-500"></i><p class="text-sm mt-2 theme-text-secondary">HTML5</p></div>
+        <div><i class="fab fa-css3-alt text-blue-500"></i><p class="text-sm mt-2 theme-text-secondary">CSS3</p></div>
+        <div><i class="fab fa-js text-yellow-400"></i><p class="text-sm mt-2 theme-text-secondary">JavaScript</p></div>
+        <div><i class="fab fa-react text-cyan-400"></i><p class="text-sm mt-2 theme-text-secondary">React</p></div>
+        <div><i class="fab fa-node-js text-green-400"></i><p class="text-sm mt-2 theme-text-secondary">Node.js</p></div>
+        <div><i class="fab fa-aws text-orange-300"></i><p class="text-sm mt-2 theme-text-secondary">AWS</p></div>
+        <div><i class="fab fa-python text-yellow-300"></i><p class="text-sm mt-2 theme-text-secondary">Python</p></div>
+        <div><i class="fab fa-google text-blue-400"></i><p class="text-sm mt-2 theme-text-secondary">Google Ads</p></div>
+        <div><i class="fas fa-search theme-text-primary"></i><p class="text-sm mt-2 theme-text-secondary">SEO</p></div>
+        <div><i class="fab fa-facebook text-blue-500"></i><p class="text-sm mt-2 theme-text-secondary">Meta Ads</p></div>
+        <div><i class="fab fa-google text-red-500"></i><p class="text-sm mt-2 theme-text-secondary">GTM</p></div>
+        <div><i class="fab fa-github theme-text-primary"></i><p class="text-sm mt-2 theme-text-secondary">GitHub</p></div>
+    </div>
 </section>
 
-<!-- Projects -->
-<section id="projects" class="px-8 py-12 animate__animated animate__fadeInUp">
-  <h2 class="text-3xl font-semibold text-teal-400 mb-8 text-center">Projects</h2>
-  <div class="grid md:grid-cols-3 gap-6">
-    <div class="flip-card bg-gray-700 p-4 rounded-xl h-64">
-      <div class="flip-card-inner">
-        <div class="flip-card-front bg-gray-700">
-          <h3 class="text-xl font-bold text-teal-300 text-center">Note-Taking App</h3>
-        </div>
-        <div class="flip-card-back bg-gray-800">
-          <p class="text-center">React + AWS-based app for secure note storage with user authentication and CRUD.</p>
-        </div>
-      </div>
+<!-- Certifications Section -->
+<section id="certifications" class="px-8 py-12 animate__animated animate__fadeInLeft rounded-xl m-4 theme-section-bg-secondary theme-text-primary">
+    <h2 class="text-3xl font-semibold theme-accent-color mb-6">Certifications</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+        <div class="p-4 rounded-lg shadow-md theme-section-bg-primary theme-text-secondary"><i class="fas fa-certificate text-yellow-400 mr-2"></i> Full Stack Developer (AWSAIAPP)</div>
+        <div class="p-4 rounded-lg shadow-md theme-section-bg-primary theme-text-secondary"><i class="fas fa-certificate text-yellow-400 mr-2"></i> Facebook Business Manager</div>
+        <div class="p-4 rounded-lg shadow-md theme-section-bg-primary theme-text-secondary"><i class="fas fa-certificate text-yellow-400 mr-2"></i> GTM Fundamentals</div>
+        <div class="p-4 rounded-lg shadow-md theme-section-bg-primary theme-text-secondary"><i class="fas fa-certificate text-yellow-400 mr-2"></i> Google Analytics for Beginners</div>
+        <div class="p-4 rounded-lg shadow-md theme-section-bg-primary theme-text-secondary"><i class="fas fa-certificate text-yellow-400 mr-2"></i> SEO Strategies</div>
     </div>
-    <div class="flip-card bg-gray-700 p-4 rounded-xl h-64">
-      <div class="flip-card-inner">
-        <div class="flip-card-front bg-gray-700">
-          <h3 class="text-xl font-bold text-teal-300 text-center">Keeper App</h3>
+</section>
+
+<!-- Projects Section -->
+<section id="projects" class="px-8 py-12 animate__animated animate__fadeInUp rounded-xl m-4 theme-section-bg-primary theme-text-primary">
+    <h2 class="text-3xl font-semibold theme-accent-color mb-8 text-center">Projects</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+        <!-- Project Flip Cards -->
+        <div class="flip-card p-4 rounded-xl h-64 theme-section-bg-secondary">
+            <div class="flip-card-inner">
+                <div class="flip-card-front theme-section-bg-secondary">
+                    <h3 class="text-xl font-bold theme-accent-color text-center">Note-Taking App</h3>
+                </div>
+                <div class="flip-card-back theme-section-bg-primary">
+                    <p class="text-center theme-text-primary">React + AWS-based app for secure note storage with user authentication and CRUD.</p>
+                </div>
+            </div>
         </div>
-        <div class="flip-card-back bg-gray-800">
-          <p class="text-center">Document management system with tagging, file conversion, and AWS Lambda deployment.</p>
+        <div class="flip-card p-4 rounded-xl h-64 theme-section-bg-secondary">
+            <div class="flip-card-inner">
+                <div class="flip-card-front theme-section-bg-secondary">
+                    <h3 class="text-xl font-bold theme-accent-color text-center">Keeper App</h3>
+                </div>
+                <div class="flip-card-back theme-section-bg-primary">
+                    <p class="text-center theme-text-primary">Document management system with tagging, file conversion, and AWS Lambda deployment.</p>
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="flip-card p-4 rounded-xl h-64 theme-section-bg-secondary">
+            <div class="flip-card-inner">
+                <div class="flip-card-front theme-section-bg-secondary">
+                    <h3 class="text-xl font-bold theme-accent-color text-center">GAN-BERT ABSA</h3>
+                </div>
+                <div class="flip-card-back theme-section-bg-primary">
+                    <p class="text-center theme-text-primary">Semi-supervised learning model combining GAN and BERT for sentiment analysis, achieving 96.9% accuracy.</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="flip-card bg-gray-700 p-4 rounded-xl h-64">
-      <div class="flip-card-inner">
-        <div class="flip-card-front bg-gray-700">
-          <h3 class="text-xl font-bold text-teal-300 text-center">GAN-BERT ABSA</h3>
-        </div>
-        <div class="flip-card-back bg-gray-800">
-          <p class="text-center">Semi-supervised learning model combining GAN and BERT for sentiment analysis, achieving 96.9% accuracy.</p>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- CV Section -->
 <section class="px-8 py-12 text-center animate__animated animate__fadeInUp">
-  <a href="Akash_Kumar_Panda_CV.pdf" download class="inline-block px-6 py-2 border border-teal-400 rounded hover:bg-teal-400 hover:text-gray-900 transition">
-    View/Download CV
-  </a>
+    <a href="Akash_Kumar_Panda_CV.pdf" download class="inline-block px-6 py-2 border theme-accent-color theme-text-primary rounded hover:theme-button-bg hover:theme-text-primary transition theme-border-color">
+        View/Download CV
+    </a>
 </section>
 
 <!-- Footer -->
-<footer class="bg-gray-800 text-center py-6 text-sm text-gray-400">
-  © 2025 Akash Kumar Panda. All rights reserved.
+<footer class="theme-header-bg text-center py-6 text-sm theme-text-secondary">
+    © 2025 Akash Kumar Panda. All rights reserved.
 </footer>
 
-<!-- Milky Way Animation Script -->
+<!-- Project Details Modal (kept in case you want to re-add 'Suggest More Details' later) -->
+<div id="project-details-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <button id="modal-close-button" class="modal-close-button theme-text-secondary">&times;</button>
+        <h3 class="text-2xl font-bold theme-accent-color">Project Details</h3>
+        <div id="modal-body" class="text-lg leading-relaxed theme-text-primary">
+            <!-- Content will be loaded here -->
+        </div>
+        <div id="modal-loading-spinner" class="loading-spinner hidden"></div>
+    </div>
+</div>
+
+<!-- Canvas Animation Script -->
 <script>
-  const canvas = document.getElementById('milkyway');
-  const ctx = canvas.getContext('2d');
-  let stars = [];
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
-  for (let i = 0; i < 200; i++) {
-    stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, radius: Math.random() * 1.5, speed: Math.random() * 0.5 });
-  }
-  let mouseX = canvas.width / 2;
-  let mouseY = canvas.height / 2;
-  document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
-  function animateStars() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let star of stars) {
-      ctx.beginPath();
-      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-      ctx.fill();
-      const dx = (mouseX - canvas.width / 2) * 0.00005;
-      const dy = (mouseY - canvas.height / 2) * 0.00005;
-      star.x += dx * star.speed * canvas.width;
-      star.y += dy * star.speed * canvas.height;
-      if (star.x < 0 || star.x > canvas.width) star.x = Math.random() * canvas.width;
-      if (star.y < 0 || star.y > canvas.height) star.y = Math.random() * canvas.height;
+    const canvas = document.getElementById('milkyway');
+    const ctx = canvas.getContext('2d');
+    let stars = []; // Array to hold star objects
+
+    // Function to resize canvas and regenerate stars
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        // Reinitialize stars
+        stars = [];
+        for (let i = 0; i < 200; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 1.5,
+                speed: Math.random() * 0.5
+            });
+        }
     }
-    requestAnimationFrame(animateStars);
-  }
-  animateStars();
-</script>
 
-<!-- Menu Toggle Script -->
-<script>
-  const toggleButton = document.getElementById('menu-toggle');
-  const menu = document.getElementById('menu');
+    // Event listener for window resize
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas(); // Initial call to set canvas size and populate stars
 
-  toggleButton.addEventListener('click', () => {
-    menu.classList.toggle('hidden');
-  });
-
-  const menuLinks = menu.querySelectorAll('a');
-  menuLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      if (window.innerWidth < 768) {
-        menu.classList.add('hidden');
-      }
+    // Mouse coordinates for parallax effect (stars)
+    let mouseX = canvas.width / 2;
+    let mouseY = canvas.height / 2;
+    document.addEventListener('mousemove', e => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
     });
-  });
+
+    // Drawing function for stars
+    function drawStars() {
+        for (let star of stars) {
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.fill();
+
+            const dx = (mouseX - canvas.width / 2) * 0.00005;
+            const dy = (mouseY - canvas.height / 2) * 0.00005;
+
+            star.x += dx * star.speed * canvas.width;
+            star.y += dy * star.speed * canvas.height;
+
+            if (star.x < 0) star.x = canvas.width;
+            if (star.x > canvas.width) star.x = 0;
+            if (star.y < 0) star.y = canvas.height;
+            if (star.y > canvas.height) star.y = 0;
+        }
+    }
+
+    // Main animation loop for background elements (stars only)
+    function animateBackground() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+        drawStars(); // Draw the background stars
+        requestAnimationFrame(animateBackground);
+    }
+
+
+    // Initial call to start the main animation loop
+    window.onload = function () {
+        resizeCanvas(); // Ensure canvas size is set before drawing
+        animateBackground(); // Start the star animation loop
+        applySavedTheme(); // Apply saved theme on load
+    };
+
+    // Menu Toggle Script for mobile responsiveness
+    const toggleButton = document.getElementById('menu-toggle');
+    const menu = document.getElementById('menu');
+
+    // Toggle menu visibility on hamburger icon click
+    toggleButton.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+    });
+
+    // Hide menu when a navigation link is clicked on mobile
+    const menuLinks = menu.querySelectorAll('a');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth < 768) { // Only for mobile viewports
+                menu.classList.add('hidden');
+            }
+        });
+    });
+
+    // Theme Toggle Logic
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Function to apply theme based on preference
+    function applyTheme(isLightMode) {
+        if (isLightMode) {
+            body.classList.add('light-mode-theme');
+            themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>'; // Change to moon icon for light mode
+        } else {
+            body.classList.remove('light-mode-theme');
+            themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>'; // Change to sun icon for dark mode
+        }
+    }
+
+    // Function to apply saved theme on initial load
+    function applySavedTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            applyTheme(true);
+        } else {
+            applyTheme(false); // Default to dark mode if no preference or 'dark'
+        }
+    }
+
+    // Event listener for theme toggle button
+    themeToggleBtn.addEventListener('click', () => {
+        const currentThemeIsLight = body.classList.contains('light-mode-theme');
+        if (currentThemeIsLight) {
+            applyTheme(false); // Switch to dark mode
+            localStorage.setItem('theme', 'dark');
+        } else {
+            applyTheme(true); // Switch to light mode
+            localStorage.setItem('theme', 'light');
+        }
+    });
+
+    // Note: The Gemini API integration for Project Details and the modal logic are
+    // still present in this script, but the 'Suggest More Details' buttons have been
+    // removed from the HTML. If you decide to re-add them, the functionality will still work.
+    // However, since the buttons are gone, this code is effectively unused for now.
+    const modal = document.getElementById('project-details-modal');
+    const modalBody = document.getElementById('modal-body');
+    const modalLoadingSpinner = document.getElementById('modal-loading-spinner');
+    const modalCloseButton = document.getElementById('modal-close-button');
+    // const generateButtons = document.querySelectorAll('.generate-details-btn'); // No longer used as buttons are removed
+
+    // Function to show the modal (still exists but not directly triggered from UI)
+    function showModal() {
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling background
+    }
+
+    // Function to hide the modal
+    function hideModal() {
+        modal.classList.add('hidden');
+        document.body.style.overflow = ''; // Restore scrolling
+        modalBody.innerHTML = ''; // Clear content
+    }
+
+    // Event listener for closing modal
+    modalCloseButton.addEventListener('click', hideModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) { // Close when clicking outside the content
+            hideModal();
+        }
+    });
+
+    // Async function to generate project details using Gemini API (still exists but not directly triggered from UI)
+    /*
+    async function generateProjectDetails(projectDescription) {
+        showModal();
+        modalBody.innerHTML = ''; // Clear previous content
+        modalLoadingSpinner.classList.remove('hidden'); // Show loading spinner
+
+        try {
+            const prompt = `Expand on the following project description in a detailed and professional manner, highlighting its purpose, technologies used, and key outcomes. Keep the response concise but informative, suitable for a professional portfolio: "${projectDescription}"`;
+
+            let chatHistory = [];
+            chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+
+            const payload = { contents: chatHistory };
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const result = await response.json();
+
+            if (result.candidates && result.candidates.length > 0 &&
+                result.candidates[0].content && result.candidates[0].content.parts &&
+                result.candidates[0].content.parts.length > 0) {
+                const text = result.candidates[0].content.parts[0].text;
+                modalBody.innerHTML = text; // Display generated text
+            } else {
+                modalBody.innerHTML = '<p class="text-red-400">Could not generate details. Please try again.</p>';
+            }
+        } catch (error) {
+            console.error('Error generating project details:', error);
+            modalBody.innerHTML = '<p class="text-red-400">An error occurred while fetching details. Please check your network connection or try again later.</p>';
+        } finally {
+            modalLoadingSpinner.classList.add('hidden'); // Hide loading spinner
+        }
+    }
+    */
+
+    // The event listeners for generateButtons are removed as the buttons themselves are removed.
+    /*
+    generateButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const projectDescription = e.target.closest('.flip-card-back').dataset.projectDescription;
+            if (projectDescription) {
+                generateProjectDetails(projectDescription);
+            } else {
+                modalBody.innerHTML = '<p class="text-red-400">Project description not found.</p>';
+                showModal();
+            }
+        });
+    });
+    */
 </script>
 </body>
 </html>
