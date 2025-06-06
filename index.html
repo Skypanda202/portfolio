@@ -124,7 +124,6 @@
         }
         .flip-card-back {
             transform: rotateY(180deg);
-            justify-content: space-between; /* Pushes button to bottom */
         }
 
         /* Sun icon glow effect */
@@ -193,9 +192,61 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Splash Screen Styles */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #0b0c1b; /* Dark background for consistency */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Ensure it's on top of everything else */
+            opacity: 1;
+            transition: opacity 1s ease-out;
+            font-size: 2.5rem;
+            text-align: center;
+            padding: 2rem;
+        }
+        #splash-screen.hidden {
+            opacity: 0;
+            pointer-events: none; /* Allows clicks to pass through after fade out */
+        }
+        #splash-screen h2 {
+            font-size: 1.2em; /* Relative to parent font-size */
+            margin-bottom: 0.5em;
+            color: #38b2ac; /* Teal color */
+            animation: pulse 1.5s infinite; /* Gentle pulsing effect */
+        }
+        #splash-screen p {
+            font-size: 0.8em;
+            color: #f8f8f2; /* Light text */
+            animation: fadeIn 2s ease-out; /* Fade in effect */
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
     </style>
 </head>
 <body class="theme-section-bg-primary theme-text-primary font-sans relative">
+
+<!-- Welcome Splash Screen -->
+<div id="splash-screen">
+    <h2 class="font-bold">Hey there!</h2>
+    <p class="mt-4">Welcome to the portfolio of <span class="text-yellow-400">Sky Panda</span>.</p>
+</div>
+
 <canvas class="interactive-bg-canvas" id="milkyway"></canvas>
 
 <!-- Header/Menu -->
@@ -215,10 +266,10 @@
         <nav id="menu" class="hidden md:flex md:space-x-6 text-sm flex-col md:flex-row absolute md:static top-16 left-0 w-full md:w-auto theme-header-bg md:bg-transparent px-6 md:px-0 py-4 md:py-0 z-40 space-y-4 md:space-y-0">
             <a href="#hero" class="block hover:theme-accent-color theme-text-primary">Home</a>
             <a href="#about" class="block hover:theme-accent-color theme-text-primary">About</a>
-            <a href="#experience" class="block hover:theme-accent-color theme-text-primary">Experience</a>
             <a href="#education" class="block hover:theme-accent-color theme-text-primary">Education</a>
             <a href="#skills" class="block hover:theme-accent-color theme-text-primary">Skills</a>
             <a href="#certifications" class="block hover:theme-accent-color theme-text-primary">Certifications</a>
+            <a href="#experience" class="block hover:theme-accent-color theme-text-primary">Experience</a>
             <a href="#projects" class="block hover:theme-accent-color theme-text-primary">Projects</a>
         </nav>
     </div>
@@ -239,7 +290,7 @@
         <a href="https://www.facebook.com/" class="text-blue-500 hover-bounce" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
         <a href="https://www.linkedin.com/in/akash-kumar-panda1015/" class="text-blue-300 hover-bounce" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
         <a href="https://github.com/" class="theme-text-primary hover-bounce" aria-label="GitHub"><i class="fab fa-github"></i></a>
-        <a href="mailto:akashpanda6543@gmail.com" class="text-red-500 hover-bounce" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        <a href="mailto:pandaakash455@gmail.com" class="text-red-500 hover-bounce" aria-label="Email"><i class="fas fa-envelope"></i></a>
     </div>
 </section>
 
@@ -247,28 +298,12 @@
 <section id="about" class="px-8 py-12 animate__animated animate__fadeInLeft rounded-xl m-4 theme-section-bg-secondary theme-text-primary">
     <h2 class="text-3xl font-semibold theme-accent-color mb-4">About Me</h2>
     <p class="max-w-5xl text-lg leading-relaxed theme-text-primary">
-        I'm a dedicated and detail-oriented Computer Science & Engineering student at Government College of Engineering, Kalahandi. With a strong foundation in programming and cloud infrastructure, I enjoy solving problems using React, Node.js, Python, and AWS. I’ve led and executed full-stack web projects, applied digital marketing strategies (SEO, Ads, GTM), and deployed scalable systems. I'm passionate about innovation and always eager to learn modern tech to deliver efficient, real-world solutions.
+        I am a versatile and results-driven Computer Science graduate, passionate about leveraging technology to solve complex problems. With a strong foundation in Full Stack Web Development and Cloud Computing (AWS), I thrive on building scalable and secure web applications. My experience includes developing robust user authentication systems, crafting responsive designs, and seamlessly integrating AWS for efficient data management. Beyond development, I'm adept at applying SEO and digital marketing strategies to boost online visibility and drive performance. I'm committed to continuous learning and eager to contribute innovative solutions.
     </p>
 </section>
 
-<!-- Experience Section -->
-<section id="experience" class="px-8 py-12 animate__animated animate__fadeInUp rounded-xl m-4 theme-section-bg-primary theme-text-primary">
-    <h2 class="text-3xl font-semibold theme-accent-color mb-6">Experience</h2>
-    <div class="p-6 rounded-xl shadow-lg theme-section-bg-secondary">
-        <h3 class="text-xl font-bold theme-text-primary">Full Stack Developer</h3>
-        <p class="mt-1 theme-text-secondary">Intelligent AWS Application | 2023-2024</p>
-        <ul class="list-disc list-inside mt-4 space-y-2 theme-text-secondary">
-            <li>Developed user authentication, responsive designs, and seamless AWS data management solutions.</li>
-            <li>Analyzed business data to uncover growth opportunities and improve decision-making.</li>
-            <li>Created detailed reports to support faster and more informed strategic decisions.</li>
-            <li>Led numerous ad campaigns, significantly enhancing brand visibility and driving profitability.</li>
-            <li>Improved SEO strategies, boosting organic traffic through optimized keywords and effective backlinking.</li>
-        </ul>
-    </div>
-</section>
-
 <!-- Education Section -->
-<section id="education" class="px-8 py-12 animate__animated animate__fadeInRight rounded-xl m-4 theme-section-bg-secondary theme-text-primary">
+<section id="education" class="px-8 py-12 animate__animated animate__fadeInRight rounded-xl m-4 theme-section-bg-primary theme-text-primary">
     <h2 class="text-3xl font-semibold theme-accent-color mb-6">Education</h2>
     <div class="p-6 rounded-xl shadow-lg theme-section-bg-secondary md:grid md:grid-cols-2 gap-6">
         <div>
@@ -314,6 +349,33 @@
         <div class="p-4 rounded-lg shadow-md theme-section-bg-primary theme-text-secondary"><i class="fas fa-certificate text-yellow-400 mr-2"></i> GTM Fundamentals</div>
         <div class="p-4 rounded-lg shadow-md theme-section-bg-primary theme-text-secondary"><i class="fas fa-certificate text-yellow-400 mr-2"></i> Google Analytics for Beginners</div>
         <div class="p-4 rounded-lg shadow-md theme-section-bg-primary theme-text-secondary"><i class="fas fa-certificate text-yellow-400 mr-2"></i> SEO Strategies</div>
+    </div>
+</section>
+
+<!-- Experience Section -->
+<section id="experience" class="px-8 py-12 animate__animated animate__fadeInUp rounded-xl m-4 theme-section-bg-primary theme-text-primary">
+    <h2 class="text-3xl font-semibold theme-accent-color mb-6">Experience</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+        <!-- Full Stack Web Developer Experience -->
+        <div class="p-6 rounded-xl shadow-lg theme-section-bg-secondary">
+            <h3 class="text-xl font-bold theme-text-primary">Full Stack Web Developer</h3>
+            <p class="mt-1 theme-text-secondary">Intelligent AWS Application | 2023-2024</p>
+            <ul class="list-disc list-inside mt-4 space-y-2 theme-text-secondary">
+                <li>Developed user authentication, responsive designs, and seamless AWS data management solutions.</li>
+                <li>Analyzed business data to uncover growth opportunities and improve decision-making.</li>
+                <li>Created detailed reports to support faster and more informed strategic decisions.</li>
+            </ul>
+        </div>
+        <!-- Digital Marketing Executive Experience -->
+        <div class="p-6 rounded-xl shadow-lg theme-section-bg-secondary">
+            <h3 class="text-xl font-bold theme-text-primary">Digital Marketing Executive</h3>
+            <p class="mt-1 theme-text-secondary">Intelligent AWS Application | 2023-2024</p>
+            <ul class="list-disc list-inside mt-4 space-y-2 theme-text-secondary">
+                <li>Led numerous ad campaigns, significantly enhancing brand visibility and driving profitability.</li>
+                <li>Improved SEO strategies, boosting organic traffic through optimized keywords and effective backlinking.</li>
+                <li>Utilized Google Ads, Meta Ads, GTM, and Google Analytics for performance optimization.</li>
+            </ul>
+        </div>
     </div>
 </section>
 
@@ -384,19 +446,21 @@
     const canvas = document.getElementById('milkyway');
     const ctx = canvas.getContext('2d');
     let stars = []; // Array to hold star objects
+    let frameCount = 0; // To help with consistent animation phases
 
     // Function to resize canvas and regenerate stars
     function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        // Reinitialize stars
+        // Reinitialize stars with unique animation phase for twinkling
         stars = [];
         for (let i = 0; i < 200; i++) {
             stars.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
                 radius: Math.random() * 1.5,
-                speed: Math.random() * 0.5
+                speed: Math.random() * 0.5,
+                animationPhase: Math.random() * Math.PI * 2 // Random phase for twinkling
             });
         }
     }
@@ -413,12 +477,27 @@
         mouseY = e.clientY;
     });
 
-    // Drawing function for stars
+    // Drawing function for stars with light mode animation
     function drawStars() {
+        const isLightMode = document.body.classList.contains('light-mode-theme');
+
         for (let star of stars) {
             ctx.beginPath();
-            ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            
+            let currentRadius = star.radius;
+            let currentOpacity = 0.8;
+            let fillColor = `rgba(255, 255, 255, ${currentOpacity})`; // Default to white stars
+
+            if (isLightMode) {
+                // Apply a twinkling effect in light mode
+                const twinkleFactor = Math.sin((frameCount * 0.05 + star.animationPhase) * 0.5) * 0.5 + 0.5; // Oscillates between 0.5 and 1.5
+                currentRadius = star.radius * (1 + twinkleFactor * 0.8); // Make it slightly larger and more dynamic
+                currentOpacity = 0.5 + twinkleFactor * 0.5; // Vary opacity more
+                fillColor = `rgba(150, 150, 255, ${currentOpacity})`; // Light blue-ish tint for light mode stars
+            }
+
+            ctx.arc(star.x, star.y, currentRadius, 0, Math.PI * 2);
+            ctx.fillStyle = fillColor;
             ctx.fill();
 
             const dx = (mouseX - canvas.width / 2) * 0.00005;
@@ -438,6 +517,7 @@
     function animateBackground() {
         ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
         drawStars(); // Draw the background stars
+        frameCount++; // Increment frame counter for animation
         requestAnimationFrame(animateBackground);
     }
 
@@ -447,6 +527,23 @@
         resizeCanvas(); // Ensure canvas size is set before drawing
         animateBackground(); // Start the star animation loop
         applySavedTheme(); // Apply saved theme on load
+
+        // Splash screen logic
+        const splashScreen = document.getElementById('splash-screen');
+        setTimeout(() => {
+            splashScreen.classList.add('hidden'); // Start fade out
+            setTimeout(() => {
+                splashScreen.style.display = 'none'; // Fully hide after transition
+            }, 1000); // Matches CSS transition duration
+        }, 3000); // Display for 3 seconds
+
+        // Click to dismiss splash screen
+        splashScreen.addEventListener('click', () => {
+            splashScreen.classList.add('hidden');
+            setTimeout(() => {
+                splashScreen.style.display = 'none';
+            }, 1000);
+        });
     };
 
     // Menu Toggle Script for mobile responsiveness
@@ -513,7 +610,6 @@
     const modalBody = document.getElementById('modal-body');
     const modalLoadingSpinner = document.getElementById('modal-loading-spinner');
     const modalCloseButton = document.getElementById('modal-close-button');
-    // const generateButtons = document.querySelectorAll('.generate-details-btn'); // No longer used as buttons are removed
 
     // Function to show the modal (still exists but not directly triggered from UI)
     function showModal() {
@@ -535,61 +631,6 @@
             hideModal();
         }
     });
-
-    // Async function to generate project details using Gemini API (still exists but not directly triggered from UI)
-    /*
-    async function generateProjectDetails(projectDescription) {
-        showModal();
-        modalBody.innerHTML = ''; // Clear previous content
-        modalLoadingSpinner.classList.remove('hidden'); // Show loading spinner
-
-        try {
-            const prompt = `Expand on the following project description in a detailed and professional manner, highlighting its purpose, technologies used, and key outcomes. Keep the response concise but informative, suitable for a professional portfolio: "${projectDescription}"`;
-
-            let chatHistory = [];
-            chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-
-            const payload = { contents: chatHistory };
-
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            const result = await response.json();
-
-            if (result.candidates && result.candidates.length > 0 &&
-                result.candidates[0].content && result.candidates[0].content.parts &&
-                result.candidates[0].content.parts.length > 0) {
-                const text = result.candidates[0].content.parts[0].text;
-                modalBody.innerHTML = text; // Display generated text
-            } else {
-                modalBody.innerHTML = '<p class="text-red-400">Could not generate details. Please try again.</p>';
-            }
-        } catch (error) {
-            console.error('Error generating project details:', error);
-            modalBody.innerHTML = '<p class="text-red-400">An error occurred while fetching details. Please check your network connection or try again later.</p>';
-        } finally {
-            modalLoadingSpinner.classList.add('hidden'); // Hide loading spinner
-        }
-    }
-    */
-
-    // The event listeners for generateButtons are removed as the buttons themselves are removed.
-    /*
-    generateButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            const projectDescription = e.target.closest('.flip-card-back').dataset.projectDescription;
-            if (projectDescription) {
-                generateProjectDetails(projectDescription);
-            } else {
-                modalBody.innerHTML = '<p class="text-red-400">Project description not found.</p>';
-                showModal();
-            }
-        });
-    });
-    */
 </script>
 </body>
 </html>
